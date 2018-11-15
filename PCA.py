@@ -74,7 +74,7 @@ def figureWritten():
     Img.show()
     average = Average(img)
     img = img - average
-    topKeigenvector = PCA(img,50)
+    topKeigenvector = PCA(img,1)
     reduce = img*(topKeigenvector)
     back = backSquare(reduce,average,topKeigenvector)
     combine(back,10,10,28,28,'L').show()
