@@ -48,6 +48,7 @@ def arrayImage(img):
     return img
 
 #将image中的多张图片合成一张大图展示
+#img:图片集合   row:每行图的数量    col:每列图的数量    width:每张
 def combine(image,row,col,width,height,type):
     Img = Image.new(type,(col*width,row*height))
     for i in range(len(image)):
@@ -57,14 +58,18 @@ def combine(image,row,col,width,height,type):
 
 #测试手写数字
 def figureWritten():
+    #获取测试数据
     image,label = MNIST(path="figure",return_type="numpy").load_testing()
     img = []
     for i in range(2000):
+        #筛选数字8的图片
         if  (label[i]==8):
             img.append(image[i])
+            #仅选出100张
             if  len(img)>=100:
                 break
     img = np.array(img)
+    #将100张图片合成为一张大图进行展示
     Img = combine(img,10,10,28,28,'L')
     Img.show()
     average = Average(img)
@@ -95,6 +100,7 @@ def draw(X,reduce,topKeigenvector,average,back):
     fig = plt.figure()
     ax = Axes3D(fig)
     topKeigenvector = (np.vstack((topKeigenvector.T,[0,0,0]))*20).tolist()
+    #计算各参数
     a,b,c,d = get_panel(topKeigenvector[0],topKeigenvector[1],topKeigenvector[2])
     topKeigenvector = np.mat(topKeigenvector)
     x = np.arange(min, max, 1)
